@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Jumpscare</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-container {
+      background: #222;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 15px crimson;
+      width: 300px;
+      text-align: center;
+    }
+
+    .logo {
+      width: 100px;
+      margin-bottom: 1rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: crimson;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: darkred;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 1rem;
+      text-align: center;
+      color: #888;
+      font-size: 0.9em;
+    }
+
+    /* Jumpscare Shake Effect */
+    .shake {
+      animation: shake 0.5s infinite;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(0px, 0px); }
+      25% { transform: translate(10px, -10px); }
+      50% { transform: translate(-10px, 10px); }
+      75% { transform: translate(10px, 10px); }
+      100% { transform: translate(0px, 0px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container" id="login-box">
+    <img src="logo.png" alt="Logo" class="logo">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="checkLogin()">Login</button>
+  </div>
+
+  <div id="jumpscare" style="display:none;">
+    <audio autoplay>
+      <source src="scream.mp3" type="audio/mpeg">
+      Your browser does not support the audio tag.
+    </audio>
+    <img src="jumpscare.jpg" alt="Jumpscare"
+      style="position:fixed; top:0; left:0; width:100vw; height:100vh; object-fit:cover; z-index:999;">
+  </div>
+
+  <footer>
+    &copy; 2025 Tono Corp. All rights reserved.
+  </footer>
+
+  <script>
+    async function checkLogin() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+
+      if (user === "Tono" && pass === "Tono") {
+        // Fullscreen
+        if (document.documentElement.requestFullscreen) {
+          await document.documentElement.requestFullscreen();
+        }
+
+        // Show jumpscare
+        document.body.innerHTML = document.getElementById("jumpscare").innerHTML;
+        document.body.classList.add("shake");
+      } else {
+        alert("Username atau password salah!");
+      }
+    }
+  </script>
+</body>
+</html>
